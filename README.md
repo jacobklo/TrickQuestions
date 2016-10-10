@@ -1,3 +1,3 @@
-# InterviewQuestions
+# TrickQuestions
 
-This is the interview questions I have encounted or practiced.
+This is the trick questions I have encounted or practiced. Those are the one took me some time to think.
