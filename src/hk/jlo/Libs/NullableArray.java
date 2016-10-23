@@ -3,9 +3,8 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 /*
- * NOT FULLY TESTED
  * This is a nullable array
- * Version 0.2
+ * Version 1.0
  * Author : Jacob Lo
  */
 public class NullableArray<T> implements Collection<T>{
@@ -41,19 +40,42 @@ public class NullableArray<T> implements Collection<T>{
 		for ( int i = 0 ; i < mC_Arr.length ; i++)
 		{
 			T tmp = (T) mC_Arr[i];
-			if ( tmp.equals(arg0))
+			if ( tmp != null && tmp.equals(arg0))
 				return i;
 		}
 		return -1;
 	}
+	public boolean checkIfResize(){
+		if (size() + 1 < mC_Arr.length)		return false;
+		return resize();
+	}
+	public boolean resize(){
+		return resize(mC_Arr.length * 2);
+	}
+	
+	public boolean resize( int newArrayLength)
+	{
+		if (newArrayLength < 0 || newArrayLength <= Array_Length) throwArrayIndexOutOfBoundException();
+		Object[] newArray = new Object[newArrayLength];
+		for (int i = 0 ; i < mC_Arr.length ; i++)
+			newArray[i] = mC_Arr[i];
+		mC_Arr = newArray;
+		return true;
+	}
+	
+	private void throwArrayIndexOutOfBoundException()
+	{
+		throw new ArrayIndexOutOfBoundsException();
+	}
 	
 	///---COLECTION---///
 	public boolean add(int index, T arg0) {
-		if (index >= mC_Arr.length || index < 0)	return false;
+		if (index < 0)	throwArrayIndexOutOfBoundException();
 		if ( arg0 == null)	return false;
+		checkIfResize();
+		if (index >= mC_Arr.length ) throwArrayIndexOutOfBoundException();
 		mI_CurrentSize++;
 		mC_Arr[index] = arg0;
-		// TODO resize
 		return true;
 	}
 	
@@ -70,6 +92,13 @@ public class NullableArray<T> implements Collection<T>{
 			if (!add(a))
 				return false;
 		return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T get(int index)
+	{
+		if (index < 0 || index >= mC_Arr.length)	throwArrayIndexOutOfBoundException();
+		return (T) mC_Arr[index];
 	}
 
 	@Override
@@ -104,7 +133,8 @@ public class NullableArray<T> implements Collection<T>{
 			this.mI_CurrentSize != casto.mI_CurrentSize)	return false;
 		for (int i = 0 ; i < mC_Arr.length ; i++)
 		{
-			if (!(mC_Arr[i].equals(casto.mC_Arr[i])))	return false;
+			if (!(mC_Arr[i] == null && casto.mC_Arr[i] == null))	return false;
+			if (!(mC_Arr[i] != null && mC_Arr[i].equals(casto.mC_Arr[i])))	return false;
 		}
 		return true;
 	}
@@ -114,6 +144,10 @@ public class NullableArray<T> implements Collection<T>{
 		return size() == 0;
 	}
 
+	/*
+	 * Size() : Number of non-Null elements
+	 * @see java.util.Collection#size()
+	 */
 	@Override
 	public int size() {
 		return mI_CurrentSize;
@@ -159,7 +193,7 @@ public class NullableArray<T> implements Collection<T>{
 
 	@Override
 	public Object[] toArray() {
-		return toArray(new Object[0]);
+		return toArray(new Object[size()]);
 	}
 
 	/*
@@ -222,6 +256,4 @@ public class NullableArray<T> implements Collection<T>{
 			NullableArray.this.remove(cursor);
 		}
 	}
-
-	
 }
