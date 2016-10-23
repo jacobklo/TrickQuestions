@@ -12,14 +12,7 @@ import java.util.ArrayList;
  */
 public class FirstCommonManagerMain {
 	public static void main(String[] args){
-		Employee ceo = getCEO();
-		
-	}
-	
-	public static Employee getCEO()
-	{
 		FirstCommonManager fcm = new FirstCommonManager();
-		
 		Employee a = fcm.new Employee(30,"A",null);
 		Employee b = fcm.new Employee(31,"B",null);
 		Employee c = fcm.new Employee(32,"C",null);
@@ -41,7 +34,7 @@ public class FirstCommonManagerMain {
 		
 		ArrayList<Employee> arbyArr = new ArrayList<Employee>();
 		arbyArr.add(e);
-		Employee arby = fcm.new Employee(23,"Sil",arbyArr);
+		Employee arby = fcm.new Employee(23,"Arby",arbyArr);
 		
 		ArrayList<Employee> leftArr = new ArrayList<Employee>();
 		leftArr.add(linda);
@@ -58,6 +51,11 @@ public class FirstCommonManagerMain {
 		ceoArr.add(rightM);
 		Employee ceo = fcm.new Employee(0,"CEO",ceoArr);
 		
-		return ceo;
+		fcm.print(jac, c, d);
+		fcm.print(ceo, c, d);
+		fcm.print(ceo, a, d);
+		fcm.print(ceo, c, e);
+		fcm.print(e, e, e);
+		fcm.print(ceo, ceo, d);
 	}
 }
