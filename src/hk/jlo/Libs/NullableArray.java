@@ -153,6 +153,10 @@ public class NullableArray<T> implements Collection<T>{
 		return mI_CurrentSize;
 	}
 	
+	public int getCapacity(){
+		return mC_Arr.length;
+	}
+	
 	public boolean remove(int index)
 	{
 		if (index >= mC_Arr.length || index < 0 || mI_CurrentSize <= 0)	return false;
@@ -254,6 +258,7 @@ public class NullableArray<T> implements Collection<T>{
 		public void remove()
 		{
 			NullableArray.this.remove(cursor);
+			// TODO handle concorrent
 		}
 	}
 }
