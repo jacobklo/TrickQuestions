@@ -1,61 +1,61 @@
 package main;
-import tree.FirstCommonManager;
-import tree.FirstCommonManager.Employee;
+import tree.FirstCommonNode;
+import tree.FirstCommonNode.Node;
 import java.util.ArrayList;
 
 /*
  * Company structure
- * 								CEO
+ * 								ROOT
  * 				LeftS					RightM
  * 			Linda		Sil			Jac			Arby
  * 		A			  B			c		d	  		e
  */
 public class FirstCommonManagerMain {
 	public static void main(String[] args){
-		FirstCommonManager fcm = new FirstCommonManager();
-		Employee a = fcm.new Employee(30,"A",null);
-		Employee b = fcm.new Employee(31,"B",null);
-		Employee c = fcm.new Employee(32,"C",null);
-		Employee d = fcm.new Employee(33,"D",null);
-		Employee e = fcm.new Employee(34,"E",null);
+		FirstCommonNode<Integer> fcm = new FirstCommonNode<Integer>();
+		FirstCommonNode<Integer>.Node a = fcm.new Node(30,null);
+		FirstCommonNode<Integer>.Node b = fcm.new Node(31,null);
+		FirstCommonNode<Integer>.Node c = fcm.new Node(32,null);
+		FirstCommonNode<Integer>.Node d = fcm.new Node(33,null);
+		FirstCommonNode<Integer>.Node e = fcm.new Node(34,null);
 		
-		ArrayList<Employee> lindaArr = new ArrayList<Employee>();
+		ArrayList<FirstCommonNode<Integer>.Node> lindaArr = new ArrayList<FirstCommonNode<Integer>.Node>();
 		lindaArr.add(a);
-		Employee linda = fcm.new Employee(20,"Linda",lindaArr);
+		FirstCommonNode<Integer>.Node linda = fcm.new Node(20,lindaArr);
 		
-		ArrayList<Employee> silArr = new ArrayList<Employee>();
+		ArrayList<FirstCommonNode<Integer>.Node> silArr = new ArrayList<FirstCommonNode<Integer>.Node>();
 		silArr.add(b);
-		Employee sil = fcm.new Employee(21,"Sil",silArr);
+		FirstCommonNode<Integer>.Node sil = fcm.new Node(21,silArr);
 		
-		ArrayList<Employee> jacArr = new ArrayList<Employee>();
+		ArrayList<FirstCommonNode<Integer>.Node> jacArr = new ArrayList<FirstCommonNode<Integer>.Node>();
 		jacArr.add(c);
 		jacArr.add(d);
-		Employee jac = fcm.new Employee(22,"Jac",jacArr);
+		FirstCommonNode<Integer>.Node jac = fcm.new Node(22,jacArr);
 		
-		ArrayList<Employee> arbyArr = new ArrayList<Employee>();
+		ArrayList<FirstCommonNode<Integer>.Node> arbyArr = new ArrayList<FirstCommonNode<Integer>.Node>();
 		arbyArr.add(e);
-		Employee arby = fcm.new Employee(23,"Arby",arbyArr);
+		FirstCommonNode<Integer>.Node arby = fcm.new Node(23,arbyArr);
 		
-		ArrayList<Employee> leftArr = new ArrayList<Employee>();
+		ArrayList<FirstCommonNode<Integer>.Node> leftArr = new ArrayList<FirstCommonNode<Integer>.Node>();
 		leftArr.add(linda);
 		leftArr.add(sil);
-		Employee leftS = fcm.new Employee(11,"LeftS",leftArr);
+		FirstCommonNode<Integer>.Node leftS = fcm.new Node(11,leftArr);
 		
-		ArrayList<Employee> rightArr = new ArrayList<Employee>();
+		ArrayList<FirstCommonNode<Integer>.Node> rightArr = new ArrayList<FirstCommonNode<Integer>.Node>();
 		rightArr.add(jac);
 		rightArr.add(arby);
-		Employee rightM = fcm.new Employee(12,"RightM",rightArr);
+		FirstCommonNode<Integer>.Node rightM = fcm.new Node(12,rightArr);
 		
-		ArrayList<Employee> ceoArr = new ArrayList<Employee>();
+		ArrayList<FirstCommonNode<Integer>.Node> ceoArr = new ArrayList<FirstCommonNode<Integer>.Node>();
 		ceoArr.add(leftS);
 		ceoArr.add(rightM);
-		Employee ceo = fcm.new Employee(0,"CEO",ceoArr);
+		FirstCommonNode<Integer>.Node root = fcm.new Node(0,ceoArr);
 		
 		fcm.print(jac, c, d);
-		fcm.print(ceo, c, d);
-		fcm.print(ceo, a, d);
-		fcm.print(ceo, c, e);
+		fcm.print(root, c, d);
+		fcm.print(root, a, d);
+		fcm.print(root, c, e);
 		fcm.print(e, e, e);
-		fcm.print(ceo, ceo, d);
+		fcm.print(root, root, d);
 	}
 }
